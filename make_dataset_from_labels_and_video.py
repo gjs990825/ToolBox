@@ -60,7 +60,8 @@ def get_valid_labels(label_dir: Path, label_ext: str, ignore_empty=True) -> list
     return valid_labels
 
 
-def make_dataset(label_path: Path, label_ext, video_path: Path, clip_number, output_dir, image_ext,
+def make_dataset(label_path: Path, label_ext, label_out: Path,
+                 video_path: Path, clip_number, image_out: Path, image_ext,
                  ffmpeg_exec) -> bool:
     # find labels
     labels = get_valid_labels(label_path, label_ext)
@@ -69,7 +70,7 @@ def make_dataset(label_path: Path, label_ext, video_path: Path, clip_number, out
         return False
 
     # make workplace
-    temp_dir = output_dir.joinpath(str(uuid.uuid4()))
+    temp_dir = image_out.joinpath(str(uuid.uuid4()))
     temp_dir.mkdir(exist_ok=True)
 
     result = extract_frames(video_path, temp_dir, f'C{clip_number:02d}_%06d{image_ext}', ffmpeg_exec)
@@ -81,9 +82,9 @@ def make_dataset(label_path: Path, label_ext, video_path: Path, clip_number, out
     for label in labels:
         # move out of temp directory(ffmpeg output starts at 1)
         file_name = f'C{clip_number:02d}_{label.id + 1:06d}{image_ext}'
-        image_path = temp_dir.joinpath(file_name).replace(output_dir.joinpath(file_name))
+        image_path = temp_dir.joinpath(file_name).replace(image_out.joinpath(file_name))
         # copy and rename label, move image
-        label_copy_to = image_path.with_suffix(label.path.suffix)
+        label_copy_to = label_out.joinpath(image_path.with_suffix(label_ext).name)
         shutil.copy(label.path, label_copy_to)
 
     # clean mess
@@ -92,8 +93,11 @@ def make_dataset(label_path: Path, label_ext, video_path: Path, clip_number, out
 
 
 def run(args):
-    output_dir = Path(args.o)
-    output_dir.mkdir(exist_ok=True)
+    label_out = Path(args.o[0])
+    label_out.mkdir(parents=True, exist_ok=True)
+    image_out = Path(args.o[1]) if len(args.o) == 2 else label_out
+    image_out.mkdir(parents=True, exist_ok=True)
+
     label_ext = args.label_ext
     image_ext = args.image_ext
     ffmpeg_exec = args.ffmpeg_exec
@@ -101,12 +105,8 @@ def run(args):
     works = []
     for clip_number, (label_path, video_path) in enumerate(args.i):
         label_path, video_path = Path(label_path), Path(video_path)
-        works.append((label_path,
-                      label_ext,
-                      video_path,
-                      clip_number,
-                      output_dir,
-                      image_ext,
+        works.append((label_path, label_ext, label_out,
+                      video_path, clip_number, image_out, image_ext,
                       ffmpeg_exec,))
 
     # multiprocessing go🚀
@@ -117,12 +117,14 @@ def run(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i', action='append', nargs=2, metavar=('label_dir', 'video_path'), required=True,
+    parser.add_argument('-i', type=str, action='append', nargs=2, metavar=('label_dir', 'video_path'), required=True,
                         help='label directory and video path, multiple input pairs supported')
-    parser.add_argument('-o', type=str, required=True, help='output directory')
+    parser.add_argument('-o', type=str, action='extend', nargs='+', metavar=('label_out', 'image_out'), required=True,
+                        help='output directories')
     parser.add_argument('-label_ext', type=str, default='.txt', help='label file extension name(with dot)')
     parser.add_argument('-image_ext', type=str, default='.bmp', help='image file extension name(with dot)')
     parser.add_argument('-ffmpeg_exec', type=str, help='specify a ffmpeg executable')
     args = parser.parse_args()
 
+    print(args)
     run(args)
