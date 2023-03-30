@@ -76,6 +76,7 @@ def make_dataset(label_path: Path, label_ext, label_out: Path,
     result = extract_frames(video_path, temp_dir, f'C{clip_number:02d}_%06d{image_ext}', ffmpeg_exec)
     if not result:
         print('frame extraction failed')
+        shutil.rmtree(temp_dir)
         return False
 
     # copy label and it's correspondent image to output, rename label to match image name
