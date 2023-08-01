@@ -7,7 +7,7 @@ Here are some scripts I wrote, mainly for processing datasets. Check script head
 [Batch image format convert](image_format_convert.py)  
 [CVAT dataset export](make_dataset_from_labels_and_video.py)  
 [Dataset spliter](split_train_val.py)   
-[Campus net login (for AUSTers)](campus_net_login.py)
+[Campus net login (for AUSTers)](campus_net_login.py)  
 [Telegraph downloader](telegraph_dl.py)
 
 ---
