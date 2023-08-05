@@ -14,7 +14,7 @@ def find_files(folder, ext):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('folder', type=str, help='path to save this telegraph')
+    parser.add_argument('folder', type=str, help='path to ts videos folder')
     parser.add_argument('-e', '--extension', type=str, default='.ts', help='ts video extension, with dot')
     parser.add_argument('-n', '--name', type=str, help='new name, default: folder name')
     parser.add_argument('-r', '--remove', action=argparse.BooleanOptionalAction,
