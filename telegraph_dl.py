@@ -67,7 +67,6 @@ def download_img(name, i, path, retry=0):
     start = time.time()
     url = 'https://telegra.ph' + name
     try:
-
         response = requests.request("GET", url, headers=headers, data=payload, proxies=proxies)
         with open(path.joinpath(f'{i: 05d}.jpg'), 'wb') as f:
             f.write(response.content)
@@ -79,7 +78,7 @@ def download_img(name, i, path, retry=0):
         if retry > MAX_RETRY:
             print('Max retry exceeded!!')
             return False
-        download_img(name, i, path, retry + 1)
+        return download_img(name, i, path, retry + 1)
     end = time.time()
     print(f'Success: {i}, {end - start:.1f}s used')
     return True
