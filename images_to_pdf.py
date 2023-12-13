@@ -29,7 +29,7 @@ def image_folder_to_pdf(root, out_path=None):
     for image in images:
         img_pdf = image_to_pdf(image)
         pdf.insert_pdf(img_pdf)
-    pdf.save(out_path)
+    pdf.save(out_path, garbage=4, clean=True, deflate=True)
 
 
 if __name__ == '__main__':
