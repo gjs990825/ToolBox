@@ -43,6 +43,7 @@ if __name__ == '__main__':
     output = args.output
     print(args)
 
+    # TODO: multiprocessing this
     root = Path(args.input)
     if args.image_folders:
         for item in root.iterdir():

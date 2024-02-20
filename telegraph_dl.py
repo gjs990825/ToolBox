@@ -113,15 +113,15 @@ if __name__ == '__main__':
     folder = args.folder
 
     telegraph_html = get_telegraph_html(url)
-    parser = TelegraphParser()
-    parser.feed(telegraph_html.decode('utf-8'))
-    print(f'Title:{parser.title}, images:{len(parser.images)}')
+    tg_parser = TelegraphParser()
+    tg_parser.feed(telegraph_html.decode('utf-8'))
+    print(f'Title:{tg_parser.title}, images:{len(tg_parser.images)}')
 
-    telegraph_dir = Path(folder).joinpath(parser.title)
+    telegraph_dir = Path(folder).joinpath(tg_parser.title)
     telegraph_dir.mkdir(exist_ok=True)
 
     p = Pool(PARALLEL_NUM)
-    results = p.starmap(download_img, [(image, i, telegraph_dir) for i, image in enumerate(parser.images, 1)])
+    results = p.starmap(download_img, [(image, i, telegraph_dir) for i, image in enumerate(tg_parser.images, 1)])
     if all(results):
         print('Done, Success!')
     else:

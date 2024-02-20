@@ -8,7 +8,7 @@ from tempfile import TemporaryFile
 
 def find_files(folder, ext):
     if not folder.is_dir():
-        return []
+        return iter(())
     return (f for f in folder.iterdir() if f.suffix == ext)
 
 
@@ -37,14 +37,14 @@ if __name__ == '__main__':
 
         with TemporaryFile('wb', suffix='.ts', delete=False) as merged:
             merged.close()
-
             # start merging
             subprocess.run(f'ffmpeg -y -safe 0 -f concat -i {ts_txt.name} -c copy {merged.name}'.split())
             # convert to mp4
-            subprocess.run(f'ffmpeg -y -i {merged.name} -acodec copy -vcodec copy {name.as_posix()}'.split())
+            subprocess.run(f'ffmpeg -y -i {merged.name} -c copy {name.as_posix()}'.split())
 
             os.unlink(merged.name)
-    os.unlink(ts_txt.name)
+
+        os.unlink(ts_txt.name)
 
     if args.remove:
         shutil.rmtree(folder)
