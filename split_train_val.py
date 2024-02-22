@@ -2,8 +2,8 @@ r"""This script takes a label_path image_path pair, split them randomly.
 
 EXAMPLE:
     python split_train_val.py -i path_to_labels path_to_images
-    -image_ext .jpg -label_ext .txt
-    -output path_to_output
+    --image_ext .jpg --label_ext .txt
+    --output path_to_output
 """
 
 import argparse
@@ -43,10 +43,10 @@ def write_config(train: list[Path], test: list[Path], output_path: Path):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-i', type=str, action='extend', nargs='+', metavar=('label_path', 'image_path'), required=True)
-    parser.add_argument('-label_ext', type=str, default='.txt', help='label file extension name')
-    parser.add_argument('-image_ext', type=str, help='image file extension name')
-    parser.add_argument('-training_proportion', type=float, default='0.8', help='training proportion')
-    parser.add_argument('-output', type=str, help='output path')
+    parser.add_argument('--label_ext', type=str, default='.txt', help='label file extension name')
+    parser.add_argument('--image_ext', type=str, help='image file extension name')
+    parser.add_argument('--training_proportion', type=float, default='0.8', help='training proportion')
+    parser.add_argument('--output', type=str, help='output path')
     args = parser.parse_args()
 
     label_path = Path(args.i[0])

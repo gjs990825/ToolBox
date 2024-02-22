@@ -7,9 +7,9 @@ NOTE:
 EXAMPLE:
     python image_format_convert.py -i path_to_images_1 path_to_images_2
     -o path_to_output
-    -image_ext .jpg
-    -flags quality=90
-    -remove_original
+    --image-ext .jpg
+    --flags quality=90
+    --remove-original
 """
 
 import argparse
@@ -79,10 +79,10 @@ if __name__ == '__main__':
                         help='label directory and video path, multiple input pairs supported')
     parser.add_argument('-o', type=str, default=None,
                         help='output directory, use the same directory(s) if not specified')
-    parser.add_argument('-remove_original', default=False, action=argparse.BooleanOptionalAction,
+    parser.add_argument('-r', '--remove-original', default=False, action=argparse.BooleanOptionalAction,
                         help='remove original images')
-    parser.add_argument('-image_ext', type=str, default='.jpg', help='image file extension name(with dot)')
-    parser.add_argument('-flags', type=str, action='extend', nargs='*', help='flags for image convert')
+    parser.add_argument('-e', '--image_ext', type=str, default='.jpg', help='image file extension name(with dot)')
+    parser.add_argument('-f', '--flags', type=str, action='extend', nargs='*', help='flags for image convert')
     args = parser.parse_args()
     print(args)
 

@@ -103,7 +103,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('folder', type=str, help='path to save this telegraph')
     parser.add_argument('url', type=str, help='telegraph url')
-    parser.add_argument('-c', '--convert_to_pdf', action=argparse.BooleanOptionalAction,
+    parser.add_argument('-c', '--convert-to-pdf', action=argparse.BooleanOptionalAction,
                         help='convert images to pdf file')
     parser.add_argument('-r', '--remove', action=argparse.BooleanOptionalAction,
                         help='remove original files after conversion')

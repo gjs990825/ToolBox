@@ -122,9 +122,9 @@ if __name__ == '__main__':
                         help='label directory and video path, multiple input pairs supported')
     parser.add_argument('-o', type=str, action='extend', nargs='+', metavar=('label_out', 'image_out'), required=True,
                         help='output directories')
-    parser.add_argument('-label_ext', type=str, default='.txt', help='label file extension name(with dot)')
-    parser.add_argument('-image_ext', type=str, default='.bmp', help='image file extension name(with dot)')
-    parser.add_argument('-ffmpeg_exec', type=str, help='specify a ffmpeg executable')
+    parser.add_argument('--label_ext', type=str, default='.txt', help='label file extension name(with dot)')
+    parser.add_argument('--image_ext', type=str, default='.bmp', help='image file extension name(with dot)')
+    parser.add_argument('--ffmpeg_exec', type=str, help='specify a ffmpeg executable')
     args = parser.parse_args()
 
     print(args)
