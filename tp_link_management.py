@@ -1,4 +1,6 @@
 from copy import deepcopy
+from typing import Optional, Callable
+import json
 
 import requests
 
@@ -6,10 +8,6 @@ import requests
 def dict_modify(d, key, new_val=None, copy=True):
     if copy:
         d = deepcopy(d)
-
-    if key in d:
-        d[key] = new_val
-        return d
 
     q = [d]
     while q:
@@ -19,9 +17,6 @@ def dict_modify(d, key, new_val=None, copy=True):
             if key in e:
                 e[key] = new_val
     return d
-
-
-from typing import Optional, Callable
 
 
 class PostRequestTemplate:
@@ -135,7 +130,7 @@ class TP_LINK:
     def securityEncode(password, input2, dictionary):
         """from http://tplogin.cn/web-static/dynaform/class.js"""
 
-        output = ""
+        output = []
 
         len1 = len(password)
         len2 = len(input2)
@@ -153,9 +148,10 @@ class TP_LINK:
             else:
                 cl = ord(password[index])
                 cr = ord(input2[index])
-            output += dictionary[(cl ^ cr) % len_dict]
 
-        return output
+            output.append(dictionary[(cl ^ cr) % len_dict])
+
+        return ''.join(output)
 
 
 if __name__ == '__main__':
