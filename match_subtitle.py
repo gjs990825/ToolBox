@@ -1,4 +1,22 @@
-# Subtitle matching tool
+"""
+Subtitle matching tool
+
+Usage:
+>> python match_subtitle.py -s "D:\Personal\Desktop\1662326570103\s" "Z:\TV\Rick and Morty [tmdbid-60625]\Rick.and.Morty.S05.1080p.AMZN.WEBRip.DDP5.1.x264-NTb[rartv]"
+01.ass  ->  Rick.and.Morty.S05E01.Mort.Dinner.Rick.Andre.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.ass
+02.ass  ->  Rick.and.Morty.S05E02.Mortyplicity.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.ass
+03.ass  ->  Rick.and.Morty.S05E03.A.Rickconvenient.Mort.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.ass
+04.ass  ->  Rick.and.Morty.S05E04.Rickdependence.Spray.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.ass
+05.ass  ->  Rick.and.Morty.S05E05.Amortycan.Grickfitti.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.ass
+06.ass  ->  Rick.and.Morty.S05E06.Rick.and.Mortys.Thanksploitation.Spectacular.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.ass
+07.ass  ->  Rick.and.Morty.S05E07.Gotron.Jerrysis.Rickvangelion.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.ass
+08.ass  ->  Rick.and.Morty.S05E08.Rickternal.Friendshine.of.the.Spotless.Mort.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.ass
+09.ass  ->  Rick.and.Morty.S05E09.Forgetting.Sarick.Mortshall.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.ass
+10.ass  ->  Rick.and.Morty.S05E10.Rickmurai.Jack.1080p.AMZN.WEB-DL.DDP5.1.H.264-NTb.ass
+Making subtitles...
+DONE
+"""
+
 import argparse
 import re
 import shutil
