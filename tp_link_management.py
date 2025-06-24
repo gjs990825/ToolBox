@@ -110,8 +110,8 @@ class TP_LINK:
             return True
         return False
 
-    def default_request(self, name, in_session):
-        return self[name].request(url=self.data_request_url() if in_session else self.base_url)
+    def default_request(self, name):
+        return self[name].request(url=self.data_request_url() if self.is_logged_in else self.base_url)
 
     @property
     def is_logged_in(self):
@@ -156,12 +156,12 @@ class TP_LINK:
 
 if __name__ == '__main__':
     base_url = 'http://192.168.1.1/'
-    password = '*****'
+    password = 'TP3A218'
 
     tp_link = TP_LINK(base_url=base_url, password=password)
 
     print(tp_link.password, tp_link.password_encoded)
 
     tp_link.login()
-    tp_link.default_request('renew_dhcp', in_session=True)
+    tp_link.default_request('renew_dhcp')
     tp_link.logout()
