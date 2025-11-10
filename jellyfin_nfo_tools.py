@@ -35,7 +35,8 @@ def extract_episode_info(filename):
 
 
 def modify_xml(xml_path, title_text, out_path):
-    tree = ET.parse(xml_path)
+    parser = ET.XMLParser(encoding='utf-8')
+    tree = ET.parse(xml_path, parser=parser)
     root = tree.getroot()
     title = root.find('title')
     title.text = title_text
